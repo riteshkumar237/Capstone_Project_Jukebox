@@ -1,4 +1,4 @@
 package com.niit.jdp.repository;
 
-public class Jukebox {
+public class SongRepository {
 }
