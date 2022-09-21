@@ -33,7 +33,7 @@ public class SongRepository {
         return songList;
     }
 
-    public Song searchByID(Connection connection, int id) throws SQLException {
+    public Song searchById(Connection connection, int id) throws SQLException {
 
         String searchQueryById = "SELECT * FROM `jukebox`.`song` WHERE(`song_id` = ?);";
 
@@ -58,5 +58,10 @@ public class SongRepository {
         }
 
         return song;
+    }
+
+    public Song searchByName(Connection connection, String name) {
+
+        return null;
     }
 }
