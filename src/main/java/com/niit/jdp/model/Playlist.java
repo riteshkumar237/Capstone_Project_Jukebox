@@ -1,4 +1,5 @@
 package com.niit.jdp.model;
 
-public class Playlist {
+public class Playlist extends Song {
+
 }
