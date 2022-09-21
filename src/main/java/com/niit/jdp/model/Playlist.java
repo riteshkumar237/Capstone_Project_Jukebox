@@ -48,14 +48,13 @@ public class Playlist {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Playlist)) return false;
-        if (!super.equals(o)) return false;
         Playlist playlist = (Playlist) o;
-        return playlistId == playlist.playlistId && Objects.equals(playlistName, playlist.playlistName);
+        return playlistId == playlist.playlistId && Objects.equals(playlistName, playlist.playlistName) && Objects.equals(songList, playlist.songList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), playlistId, playlistName);
+        return Objects.hash(playlistId, playlistName, songList);
     }
 
     @Override
