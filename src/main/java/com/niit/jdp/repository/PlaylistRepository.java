@@ -1,6 +1,7 @@
 package com.niit.jdp.repository;
 
 import com.niit.jdp.model.Playlist;
+import com.niit.jdp.model.Song;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class PlaylistRepository {
 
     public boolean createPlaylist(Connection connection, Playlist playlist) throws SQLException {
 
-        String insertQuery = "insert into `jukebox`.`playlist" + "`playlist_id`, `playlist_name`,`song_id`)" + "values (?,?,?)";
+        String insertQuery = "insert into `jukebox`.`playlist" + "`playlist_id`, `playlist_name`,`song_list`)" + "values (?,?,?)";
 
         int numberOfRowsAffected;
 
@@ -50,5 +51,10 @@ public class PlaylistRepository {
         }
 
         return playlists;
+    }
+
+    public List<Song> exitingPlaylist(Connection connection, int id) {
+
+        return null;
     }
 }
