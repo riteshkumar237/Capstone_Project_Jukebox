@@ -72,7 +72,7 @@ public class SongRepository {
             ResultSet songResultSet = preparedStatement.executeQuery();
 
             while (songResultSet.next()) {
-                
+
                 int songId = songResultSet.getInt("song_id");
                 String songName = songResultSet.getString("song_name");
                 String artistName = songResultSet.getString("artist_name");
@@ -86,5 +86,10 @@ public class SongRepository {
 
 
         return song;
+    }
+
+    public Song searchByArtist(Connection connection, String name) {
+
+        return null;
     }
 }
