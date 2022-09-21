@@ -62,6 +62,7 @@ public class Playlist {
         return "Playlist{" +
                 "playlistId=" + playlistId +
                 ", playlistName='" + playlistName + '\'' +
+                ", songList=" + songList +
                 '}';
     }
 }
