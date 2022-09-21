@@ -42,4 +42,12 @@ public class Playlist extends Song {
     public int hashCode() {
         return Objects.hash(super.hashCode(), playlistId, playlistName);
     }
+
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "playlistId=" + playlistId +
+                ", playlistName='" + playlistName + '\'' +
+                '}';
+    }
 }
