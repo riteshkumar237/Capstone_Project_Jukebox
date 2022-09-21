@@ -5,6 +5,7 @@ import com.niit.jdp.model.Playlist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class PlaylistRepository {
 
@@ -23,5 +24,10 @@ public class PlaylistRepository {
             numberOfRowsAffected = preparedStatement.executeUpdate();
         }
         return numberOfRowsAffected > 0;
+    }
+
+    public List<Playlist> displayPlaylist(Connection connection) {
+
+        return null;
     }
 }
