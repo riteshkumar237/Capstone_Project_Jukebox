@@ -1,16 +1,23 @@
 package com.niit.jdp.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Playlist extends Song {
-
+public class Playlist {
     private int playlistId;
     private String playlistName;
+    private List<Song> songList;
 
-    public Playlist(int songID, String songName, String artistName, double duration, String genre, int playlistId, String playlistName) {
-        super(songID, songName, artistName, duration, genre);
+    public Playlist() {
+        this.songList = new ArrayList<>();
+    }
+
+    public Playlist(int playlistId, String playlistName) {
         this.playlistId = playlistId;
         this.playlistName = playlistName;
+
+
     }
 
     public int getPlaylistId() {
@@ -27,6 +34,14 @@ public class Playlist extends Song {
 
     public void setPlaylistName(String playlistName) {
         this.playlistName = playlistName;
+    }
+
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
     }
 
     @Override
