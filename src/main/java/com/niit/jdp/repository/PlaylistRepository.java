@@ -1,7 +1,6 @@
 package com.niit.jdp.repository;
 
 import com.niit.jdp.model.Playlist;
-import com.niit.jdp.model.Song;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class PlaylistRepository {
         return numberOfRowsAffected > 0;
     }
 
-    public List<Playlist> displayPlaylist(Connection connection) throws SQLException {
+    public List<Playlist> exitingPlaylist(Connection connection) throws SQLException {
 
         String readQuery = "SELECT * FROM `jukebox`.`playlist`;";
 
@@ -53,8 +52,5 @@ public class PlaylistRepository {
         return playlists;
     }
 
-    public List<Song> exitingPlaylist(Connection connection, int id) {
 
-        return null;
-    }
 }
