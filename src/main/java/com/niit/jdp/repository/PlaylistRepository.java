@@ -1,13 +1,27 @@
 package com.niit.jdp.repository;
 
-import com.niit.jdp.model.Song;
+import com.niit.jdp.model.Playlist;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PlaylistRepository {
 
-    public boolean createPlaylist(Connection connection, Song song) {
+    public boolean createPlaylist(Connection connection, Playlist playlist) throws SQLException {
 
-        return false;
+        String insertQuery = "insert into `jukebox`.`playlist" + "`playlist_id`, `playlist_name`,`song_id`)" + "values (?,?,?)";
+
+        int numberOfRowsAffected;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+
+            preparedStatement.setInt(1, playlist.getPlaylistId());
+            preparedStatement.setString(2, playlist.getPlaylistName());
+            preparedStatement.setInt(3, playlist.getSongID());
+
+            numberOfRowsAffected = preparedStatement.executeUpdate();
+        }
+        return numberOfRowsAffected > 0;
     }
 }
