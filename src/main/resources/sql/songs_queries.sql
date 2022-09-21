@@ -12,3 +12,7 @@ artist_name varchar(100) not null,
 duration double not null,
 genre varchar(30) not null
 );
+
+-- write query to insert value in the table.
+
+INSERT INTO `jukebox`.`song` (`song_id`, `song_name`, `artist_name`, `duration`, `genre`) VALUES ('1', 'Taare Zameen Par', 'Shankar Mahadevan', '7.13', 'Drama');
