@@ -35,4 +35,9 @@ public class SongRepository {
         }
         return songList;
     }
+
+    public Song searchByID(Connection connection, int id) {
+
+        return null;
+    }
 }
