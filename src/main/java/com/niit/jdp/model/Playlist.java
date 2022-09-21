@@ -1,5 +1,7 @@
 package com.niit.jdp.model;
 
+import java.util.Objects;
+
 public class Playlist extends Song {
 
     private int playlistId;
@@ -25,5 +27,19 @@ public class Playlist extends Song {
 
     public void setPlaylistName(String playlistName) {
         this.playlistName = playlistName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Playlist)) return false;
+        if (!super.equals(o)) return false;
+        Playlist playlist = (Playlist) o;
+        return playlistId == playlist.playlistId && Objects.equals(playlistName, playlist.playlistName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), playlistId, playlistName);
     }
 }
