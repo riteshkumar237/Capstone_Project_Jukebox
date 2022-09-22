@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Song {
     private int songID;
     private String songName;
+    private String songPath;
     private String artistName;
     private double duration;
     private String genre;
@@ -12,9 +13,10 @@ public class Song {
     public Song() {
     }
 
-    public Song(int songID, String songName, String artistName, double duration, String genre) {
+    public Song(int songID, String songName, String songPath, String artistName, double duration, String genre) {
         this.songID = songID;
         this.songName = songName;
+        this.songPath = songPath;
         this.artistName = artistName;
         this.duration = duration;
         this.genre = genre;
@@ -34,6 +36,14 @@ public class Song {
 
     public void setSongName(String songName) {
         this.songName = songName;
+    }
+
+    public String getSongPath() {
+        return songPath;
+    }
+
+    public void setSongPath(String songPath) {
+        this.songPath = songPath;
     }
 
     public String getArtistName() {
@@ -65,12 +75,12 @@ public class Song {
         if (this == o) return true;
         if (!(o instanceof Song)) return false;
         Song song = (Song) o;
-        return songID == song.songID && Double.compare(song.duration, duration) == 0 && Objects.equals(songName, song.songName) && Objects.equals(artistName, song.artistName) && Objects.equals(genre, song.genre);
+        return songID == song.songID && Double.compare(song.duration, duration) == 0 && Objects.equals(songName, song.songName) && Objects.equals(songPath, song.songPath) && Objects.equals(artistName, song.artistName) && Objects.equals(genre, song.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(songID, songName, artistName, duration, genre);
+        return Objects.hash(songID, songName, songPath, artistName, duration, genre);
     }
 
     @Override
@@ -78,6 +88,7 @@ public class Song {
         return "Song{" +
                 "songID=" + songID +
                 ", songName='" + songName + '\'' +
+                ", songPath='" + songPath + '\'' +
                 ", artistName='" + artistName + '\'' +
                 ", duration=" + duration +
                 ", genre='" + genre + '\'' +
