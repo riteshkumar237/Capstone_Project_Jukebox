@@ -21,7 +21,7 @@ public class SongRepository {
             while (songResultSet.next()) {
                 int songId = songResultSet.getInt("song_id");
                 String songName = songResultSet.getString("song_name");
-                String artistName = songResultSet.getString("arist_name");
+                String artistName = songResultSet.getString("artist_name");
                 double duration = songResultSet.getDouble("duration");
                 String genre = songResultSet.getString("genre");
 
