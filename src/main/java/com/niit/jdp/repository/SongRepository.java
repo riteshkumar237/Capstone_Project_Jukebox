@@ -6,8 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongRepository {
+public class SongRepository implements Repository {
 
+    @Override
     public List<Song> getAll(Connection connection) throws SQLException {
 
         String readQuery = "SELECT * FROM `jukebox`.`song`;";
@@ -19,25 +20,18 @@ public class SongRepository {
             ResultSet songResultSet = statement.executeQuery(readQuery);
 
             while (songResultSet.next()) {
-                int songId = songResultSet.getInt("song_id");
-                String songName = songResultSet.getString("song_name");
-                String artistName = songResultSet.getString("artist_name");
-                double duration = songResultSet.getDouble("duration");
-                String genre = songResultSet.getString("genre");
 
-                Song song = new Song(songId, songName, artistName, duration, genre);
-
-                songList.add(song);
+                songList.add(new Song(songResultSet.getInt(1), songResultSet.getString(2), songResultSet.getString(3), songResultSet.getString(4), songResultSet.getDouble(5), songResultSet.getString(6)));
             }
         }
         return songList;
     }
 
-    public Song searchById(Connection connection, int id) throws SQLException {
-
+    @Override
+    public List<Song> searchById(Connection connection, int id) throws SQLException {
         String searchQueryById = "SELECT * FROM `jukebox`.`song` WHERE(`song_id` = ?);";
 
-        Song song = new Song();
+        List<Song> songList = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchQueryById)) {
 
@@ -46,25 +40,18 @@ public class SongRepository {
 
             while (songResultSet.next()) {
 
-                int songId = songResultSet.getInt("song_id");
-                String songName = songResultSet.getString("song_name");
-                String artistName = songResultSet.getString("artist_name");
-                double duration = songResultSet.getDouble("duration");
-                String genre = songResultSet.getString("genre");
-
-                song = new Song(songId, songName, artistName, duration, genre);
-
+                songList.add(new Song(songResultSet.getInt(1), songResultSet.getString(2), songResultSet.getString(3), songResultSet.getString(4), songResultSet.getDouble(5), songResultSet.getString(6)));
             }
         }
 
-        return song;
+        return songList;
     }
 
-    public Song searchByName(Connection connection, String name) throws SQLException {
-
+    @Override
+    public List<Song> searchByName(Connection connection, String name) throws SQLException {
         String searchQueryByName = "SELECT * FROM `jukebox`.`song` WHERE(`song_name` = ?);";
 
-        Song song = new Song();
+        List<Song> songList = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchQueryByName)) {
 
@@ -73,26 +60,17 @@ public class SongRepository {
 
             while (songResultSet.next()) {
 
-                int songId = songResultSet.getInt("song_id");
-                String songName = songResultSet.getString("song_name");
-                String artistName = songResultSet.getString("artist_name");
-                double duration = songResultSet.getDouble("duration");
-                String genre = songResultSet.getString("genre");
-
-                song = new Song(songId, songName, artistName, duration, genre);
-
+                songList.add(new Song(songResultSet.getInt(1), songResultSet.getString(2), songResultSet.getString(3), songResultSet.getString(4), songResultSet.getDouble(5), songResultSet.getString(6)));
             }
         }
-
-
-        return song;
+        return songList;
     }
 
-    public Song searchByArtist(Connection connection, String name) throws SQLException {
-
+    @Override
+    public List<Song> searchByArtist(Connection connection, String name) throws SQLException {
         String searchQueryByName = "SELECT * FROM `jukebox`.`song` WHERE(`artist_name` = ?);";
 
-        Song song = new Song();
+        List<Song> songList = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(searchQueryByName)) {
 
@@ -101,17 +79,9 @@ public class SongRepository {
 
             while (songResultSet.next()) {
 
-                int songId = songResultSet.getInt("song_id");
-                String songName = songResultSet.getString("song_name");
-                String artistName = songResultSet.getString("artist_name");
-                double duration = songResultSet.getDouble("duration");
-                String genre = songResultSet.getString("genre");
-
-                song = new Song(songId, songName, artistName, duration, genre);
-
+                songList.add(new Song(songResultSet.getInt(1), songResultSet.getString(2), songResultSet.getString(3), songResultSet.getString(4), songResultSet.getDouble(5), songResultSet.getString(6)));
             }
         }
-
-        return song;
+        return songList;
     }
 }

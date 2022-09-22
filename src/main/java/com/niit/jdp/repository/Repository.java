@@ -9,9 +9,9 @@ import java.util.List;
 public interface Repository {
     List<Song> getAll(Connection connection) throws SQLException;
 
-    List<Song> searchById(Connection connection, int id);
+    List<Song> searchById(Connection connection, int id) throws SQLException;
 
-    List<Song> searchByName(Connection connection, String name);
+    List<Song> searchByName(Connection connection, String name) throws SQLException;
 
-    List<Song> searchByArtist(Connection connection, String name);
+    List<Song> searchByArtist(Connection connection, String name) throws SQLException;
 }
