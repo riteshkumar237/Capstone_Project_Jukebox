@@ -1,13 +1,30 @@
 package com.niit.jdp.service;
 
 import com.niit.jdp.Main;
+import com.niit.jdp.model.Playlist;
+import com.niit.jdp.model.Song;
 
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class SongPlayerService {
+
+    int songIndex;
+
+    public void play(List<Song> songsList) {
+
+        Playlist playlist = new Playlist();
+
+        for (int i = 0; i < playlist.getSongList().size(); i++) {
+            songIndex = i;
+            player(songsList.get(i).getSongPath());
+        }
+
+    }
+
 
     public void player(String songPath) {
 
@@ -26,7 +43,7 @@ public class SongPlayerService {
             String response = "";
 
             while (!response.equals("Q")) {
-                System.out.println("P = play, T= Pause, S=Stop, L=Loop, R = Reset, N = NextSong, O = previousSong, Q = Quit, E = Exit, M = MAIN MENU");
+                System.out.println("p = play, t= Pause, s=Stop, r = Reset, q = Quit, e = Exit, m = MAIN MENU");
                 System.out.print("Enter your choice: ");
 
                 response = scanner.next();
@@ -46,10 +63,6 @@ public class SongPlayerService {
                         clip.stop();
                         break;
                     }
-                    case ("l"): {
-                        clip.start();
-                        clip.loop(Clip.LOOP_CONTINUOUSLY);
-                    }
 
                     case ("r"):
                         clip.setMicrosecondPosition(0);
@@ -59,7 +72,7 @@ public class SongPlayerService {
                         clip.close();
                         break;
 
-                    case ("n"):
+                    case ("m"):
                         String[] arg = new String[0];
                         Main.main(arg);
                         break;
