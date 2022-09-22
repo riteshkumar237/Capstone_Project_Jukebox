@@ -87,10 +87,10 @@ public class SongRepository implements Repository {
 
     public String getPathOfTheSong(Connection connection, int songId) throws SQLException {
 
-        String sql = "SELECT `song_path` FROM `jukebox`.`song` WHERE(`song_id` = ?);";
+        String queryToGetPath = "SELECT `song_path` FROM `jukebox`.`song` WHERE(`song_id` = ?);";
         String songPath = null;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(queryToGetPath)) {
             preparedStatement.setInt(1, songId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
