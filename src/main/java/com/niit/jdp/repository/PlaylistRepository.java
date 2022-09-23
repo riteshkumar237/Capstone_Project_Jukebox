@@ -1,6 +1,7 @@
 package com.niit.jdp.repository;
 
 import com.niit.jdp.model.Playlist;
+import com.niit.jdp.model.Song;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,16 +11,15 @@ public class PlaylistRepository {
 
     public boolean createPlaylist(Connection connection, Playlist playlist) throws SQLException {
 
-        String insertQuery = "insert into `jukebox`.`playlist" + "`playlist_id`, `playlist_name`,`song_list`)" + "values (?,?,?)";
+        String insertQuery = "insert into `jukebox`.`playlist" + " `playlist_name`,`song_list`)" + "values (?,?)";
 
         int numberOfRowsAffected;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, playlist.getPlaylistId());
-            preparedStatement.setString(2, playlist.getPlaylistName());
+            preparedStatement.setString(1, playlist.getPlaylistName());
             String songList = playlist.toString().trim().replaceAll("\\[\\]", "");
-            preparedStatement.setString(3, songList);
+            preparedStatement.setString(2, songList);
 
 
             numberOfRowsAffected = preparedStatement.executeUpdate();
@@ -33,19 +33,35 @@ public class PlaylistRepository {
 
         List<Playlist> playlists = new ArrayList<>();
 
-        try (Statement statement = connection.createStatement()) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(readQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            ResultSet playlistResultSet = statement.executeQuery(readQuery);
+            ResultSet playlistResultSet = preparedStatement.executeQuery();
 
             while (playlistResultSet.next()) {
 
                 int playlistId = playlistResultSet.getInt("playlist_id");
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+                while (generatedKeys.next()) {
+
+                    int id = generatedKeys.getInt("playlist_id");
+                }
                 String playlistName = playlistResultSet.getString("playlist_name");
 
 
-                Playlist playlist = new Playlist(playlistId, playlistName);
+                String songList = playlistResultSet.getString("songList");
 
-                playlists.add(playlist);
+                songList = playlists.toString().trim().replaceAll("\\[\\]", "");
+
+                String[] songId = songList.split(",");
+
+                for (String songName : songId) {
+                    SongRepository songRepository = new SongRepository();
+                    List<Song> song = songRepository.searchById(connection, playlistId);
+
+                }
+
             }
         }
 
