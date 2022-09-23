@@ -58,4 +58,20 @@ class SongRepositoryTest {
         assertNotEquals(5, songList.size());
 
     }
+
+    @Test
+    void givenIdShouldReturnPath() throws SQLException {
+
+        int songID = 4;
+        String pathOfTheSong = songRepository.getPathOfTheSong(connection, songID);
+        assertEquals("C:\\Users\\rites\\IdeaProjects\\Capstone_Project_Jukebox\\src\\main\\resources\\song\\Rok Sako To Rok Lo.wav", pathOfTheSong);
+    }
+
+    @Test
+    void givenIdNotReturnPath() throws SQLException {
+
+        int songId = 5;
+        String pathOfTheSong1 = songRepository.getPathOfTheSong(connection, songId);
+        assertNotEquals("C:\\\\Users\\\\rites\\\\IdeaProjects\\\\Capstone_Project_Jukebox\\\\src\\\\main\\\\resources\\\\song\\\\Rok Sako To Rok Lo.wav", pathOfTheSong1);
+    }
 }
