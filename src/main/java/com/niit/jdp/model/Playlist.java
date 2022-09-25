@@ -7,6 +7,8 @@ import java.util.Objects;
 public class Playlist {
     private int playlistId;
     private String playlistName;
+
+    // private String songList;
     private List<Song> songList;
 
     public Playlist() {
@@ -19,6 +21,13 @@ public class Playlist {
 
 
     }
+
+/*
+    public Playlist(int playlistId, String playlistName, String songList) {
+        this.playlistId = playlistId;
+        this.playlistName = playlistName;
+        this.songList = songList;
+    }*/
 
     public int getPlaylistId() {
         return playlistId;
@@ -43,6 +52,14 @@ public class Playlist {
     public void setSongList(List<Song> songList) {
         this.songList = songList;
     }
+
+    /*public String getSongList() {
+        return songList;
+    }
+
+    public void setSongList(String songList) {
+        this.songList = songList;
+    }*/
 
     @Override
     public boolean equals(Object o) {
