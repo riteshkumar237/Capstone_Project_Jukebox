@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        int choice = -1;
+        int choice;
 
 
         do {
@@ -50,6 +50,9 @@ public class Main {
                 PlaylistRepository playlistRepository = new PlaylistRepository();
 
                 SongRepository songRepository = new SongRepository();
+
+
+                Playlist playlist = new Playlist();
 
                 Connection connection = databaseService.getConnection();
 
@@ -131,27 +134,12 @@ public class Main {
                         break;
 
                     case 5:
-                        System.out.println("Enter the Playlist name");
 
-                        scanner.nextLine();
-
-                        String playlistName = scanner.nextLine();
-
-                        System.out.println("Enter the Song Id");
-
-                        scanner.nextLine();
-
-                        String songList = scanner.nextLine();
-
-                        Playlist playlist = new Playlist();
-
-                        playlistRepository.createPlaylist(connection, playlist);
 
                         break;
 
                     case 6:
 
-                        break;
 
                     case 7:
 
@@ -172,11 +160,11 @@ public class Main {
                         System.err.println("Invalid choice");
                 }
 
-            } catch (SQLException exception) {
-                System.err.println("Could not connect to the database!");
-                exception.printStackTrace();
-                choice = 8;
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
+
 
         } while (choice != 8);
     }
