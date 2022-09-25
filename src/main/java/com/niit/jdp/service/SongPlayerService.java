@@ -1,5 +1,4 @@
 package com.niit.jdp.service;
-
 import com.niit.jdp.Main;
 
 import javax.sound.sampled.*;
@@ -25,8 +24,8 @@ public class SongPlayerService {
 
             String response = "";
 
-            while (!response.equals("Q")) {
-                System.out.println("p = play, t= Pause, s=Stop, q = Quit, m = MAIN MENU");
+            while (!response.equals("q")) {
+                System.out.println("p = play, t= Pause, s=Stop, q = Quit, e = Exit, m = MAIN MENU");
                 System.out.print("Enter your choice: ");
 
                 response = scanner.next();
@@ -46,6 +45,11 @@ public class SongPlayerService {
                         clip.stop();
                         break;
 
+
+                    case ("r"):
+                        clip.setMicrosecondPosition(0);
+                        break;
+
                     case ("q"):
                         clip.close();
                         break;
@@ -53,6 +57,9 @@ public class SongPlayerService {
                     case ("m"):
                         String[] arg = new String[0];
                         Main.main(arg);
+                        break;
+                    case ("e"):
+                        System.exit(0);
                         break;
 
                     default:
