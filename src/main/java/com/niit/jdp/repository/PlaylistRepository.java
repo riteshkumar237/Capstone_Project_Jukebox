@@ -6,26 +6,35 @@ import com.niit.jdp.model.Song;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class PlaylistRepository {
 
-    public boolean createPlaylist(Connection connection, Playlist playlist) throws SQLException {
+    Playlist playList = new Playlist();
+    Scanner scanner = new Scanner(System.in);
 
-        String insertQuery = "insert into `jukebox`.`playlist" + " `playlist_name`,`song_list`)" + "values (?,?)";
+    public boolean add(Connection connection, Playlist playlist) throws SQLException {
 
-        int numberOfRowsAffected;
+        int numberOfRowAffected = 0;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+        if (playlist != null) {
 
-            preparedStatement.setString(1, playlist.getPlaylistName());
-            String songList = playlist.toString().trim().replaceAll("\\[\\]", "");
-            preparedStatement.setString(2, songList);
+            Map<Song, Integer> collect = playList.getSongList().stream().collect(Collectors.toMap(Function.identity(), Song::getSongID));
+            String str = collect.values().toString().replaceAll("\\[", "").replace(" ", "");
+            String insertQuery = "insert into `jukebox`.`playlist` values(?,?);";
 
-
-            numberOfRowsAffected = preparedStatement.executeUpdate();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+                preparedStatement.setString(1, playList.getPlaylistName());
+                preparedStatement.setString(2, str);
+                numberOfRowAffected = preparedStatement.executeUpdate();
+            }
         }
-        return numberOfRowsAffected > 0;
+        return numberOfRowAffected > 0;
     }
+
 
     public List<Playlist> exitingPlaylist(Connection connection) throws SQLException {
 
@@ -59,6 +68,9 @@ public class PlaylistRepository {
                 for (String songName : songId) {
                     SongRepository songRepository = new SongRepository();
                     List<Song> song = songRepository.searchById(connection, playlistId);
+
+                    //  playlists.add(song);
+
 
                 }
 
