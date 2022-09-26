@@ -9,6 +9,7 @@ import com.niit.jdp.service.SongPlayerService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,6 +51,8 @@ public class Main {
                 PlaylistRepository playlistRepository = new PlaylistRepository();
 
                 SongRepository songRepository = new SongRepository();
+
+                Song song = new Song();
 
 
                 Playlist playlist = new Playlist();
@@ -135,6 +138,30 @@ public class Main {
 
                     case 5:
 
+                        List<Song> songList = new ArrayList<>();
+
+
+                        System.out.println("Enter play list name");
+
+                        scanner.nextLine();
+
+                        String playlistName = scanner.nextLine();
+
+                        int option;
+
+                        do {
+                            System.out.println("Enter song id to add or enter 0 to go to main manu");
+                            option = scanner.nextInt();
+
+                            for (Song songs : songList) {
+                                if (songs.getSongID() == option) {
+                                    songList.add(songs);
+                                }
+                            }
+
+                        } while (option != 0);
+
+                        playlistRepository.add(connection, playlist);
 
                         break;
 
