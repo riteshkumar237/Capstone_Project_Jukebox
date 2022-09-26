@@ -1,23 +1,21 @@
 package com.niit.jdp.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Playlist {
     private int playlistId;
     private String playlistName;
 
-    // private String songList;
-    private List<Song> songList;
+    private String songList;
+    // private List<Song> songList;
 
     public Playlist() {
-        this.songList = new ArrayList<>();
     }
 
-    public Playlist(int playlistId, String playlistName) {
+    public Playlist(int playlistId, String playlistName, String songList) {
         this.playlistId = playlistId;
         this.playlistName = playlistName;
+        this.songList = songList;
 
 
     }
@@ -45,21 +43,21 @@ public class Playlist {
         this.playlistName = playlistName;
     }
 
-    public List<Song> getSongList() {
+    /*public List<Song> getSongList() {
         return songList;
     }
 
     public void setSongList(List<Song> songList) {
         this.songList = songList;
-    }
+    }*/
 
-    /*public String getSongList() {
+    public String getSongList() {
         return songList;
     }
 
     public void setSongList(String songList) {
         this.songList = songList;
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

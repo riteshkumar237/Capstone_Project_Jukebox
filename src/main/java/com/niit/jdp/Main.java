@@ -9,7 +9,6 @@ import com.niit.jdp.service.SongPlayerService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -138,14 +137,12 @@ public class Main {
 
                     case 5:
 
-                        List<Song> songList = new ArrayList<>();
+                      /*  List<Song> songList = new ArrayList<>();
 
 
                         System.out.println("Enter play list name");
 
-                        scanner.nextLine();
-
-                        String playlistName = scanner.nextLine();
+                        playlist.setPlaylistName(scanner.next());
 
                         int option;
 
@@ -161,11 +158,35 @@ public class Main {
 
                         } while (option != 0);
 
-                        playlistRepository.add(connection, playlist);
+                        playlist.setSongList(songList);
+
+                        playlistRepository.add(connection, playlist);*/
+
+                        System.out.println("Enter playlist name :");
+                        String playlistName = scanner.next();
+                        System.out.println("Enter song id");
+                        String songId4 = scanner.next();
+
+                        Playlist playlist1 = new Playlist(0, playlistName, songId4);
+                        playlistRepository.createPlaylist(connection, playlist1);
+
 
                         break;
 
                     case 6:
+                        List<Playlist> displayPlaylist = playlistRepository.displayPlaylist(connection);
+
+                        System.out.println("============================================");
+
+                        System.out.format("%-10s %-30s %-30s \n", "Playlist ID", "PlaylistName", "Song List");
+
+                        for (Playlist playlist2 : displayPlaylist) {
+                            System.out.format("%-10s %-30s %-30s \n", playlist2.getPlaylistId(), playlist2.getPlaylistName(), playlist2.getSongList());
+
+                        }
+                        System.out.println("============================================");
+
+                        break;
 
 
                     case 7:
@@ -179,12 +200,14 @@ public class Main {
                         break;
 
                     case 8:
+
                         System.out.println("Exit");
 
                         break;
 
                     default:
                         System.err.println("Invalid choice");
+
                 }
 
 

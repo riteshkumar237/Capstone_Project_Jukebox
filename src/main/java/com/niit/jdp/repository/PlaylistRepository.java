@@ -1,22 +1,18 @@
 package com.niit.jdp.repository;
 
 import com.niit.jdp.model.Playlist;
-import com.niit.jdp.model.Song;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class PlaylistRepository {
 
     Playlist playList = new Playlist();
     Scanner scanner = new Scanner(System.in);
 
-    public boolean add(Connection connection, Playlist playlist) throws SQLException {
+   /* public boolean add(Connection connection, Playlist playlist) throws SQLException {
 
         int numberOfRowAffected = 0;
 
@@ -33,51 +29,37 @@ public class PlaylistRepository {
             }
         }
         return numberOfRowAffected > 0;
-    }
+    }*/
 
 
-    public List<Playlist> exitingPlaylist(Connection connection) throws SQLException {
+    public List<Playlist> displayPlaylist(Connection connection) throws SQLException {
 
         String readQuery = "SELECT * FROM `jukebox`.`playlist`;";
 
         List<Playlist> playlists = new ArrayList<>();
+        ResultSet resultSet;
+        try (Statement statement = connection.createStatement()) {
+            resultSet = statement.executeQuery(readQuery);
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(readQuery, Statement.RETURN_GENERATED_KEYS)) {
+            while (resultSet.next()) {
 
-            ResultSet playlistResultSet = preparedStatement.executeQuery();
-
-            while (playlistResultSet.next()) {
-
-                int playlistId = playlistResultSet.getInt("playlist_id");
-
-                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-
-                while (generatedKeys.next()) {
-
-                    int id = generatedKeys.getInt("playlist_id");
-                }
-                String playlistName = playlistResultSet.getString("playlist_name");
-
-
-                String songList = playlistResultSet.getString("songList");
-
-                songList = playlists.toString().trim().replaceAll("\\[\\]", "");
-
-                String[] songId = songList.split(",");
-
-                for (String songName : songId) {
-                    SongRepository songRepository = new SongRepository();
-                    List<Song> song = songRepository.searchById(connection, playlistId);
-
-                    //  playlists.add(song);
-
-
-                }
-
+                playlists.add(new Playlist(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
             }
         }
-
         return playlists;
+    }
+
+    public boolean createPlaylist(Connection connection, Playlist playlist) throws SQLException {
+
+        String insertQuery = "INSERT INTO `jukebox`.`playlist` (`playlist_name`, `song_list`) VALUES (?,?);";
+        int numberOfRowsAffected;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+
+            preparedStatement.setString(1, playlist.getPlaylistName());
+            preparedStatement.setString(2, playlist.getSongList());
+            numberOfRowsAffected = preparedStatement.executeUpdate();
+        }
+        return numberOfRowsAffected > 0;
     }
 
 
